@@ -12,8 +12,10 @@ export const selectCandy = candy => ({
 
 // THUNK
 
-export const fetchCandies = () => async dispatch => {
+export const getCandies = () => async dispatch => {
+  console.log('testing');
   try {
+    console.log('from actions candies server');
     const { data } = await axios.get('/candies');
     dispatch(selectCandy(data));
   } catch (err) {
@@ -22,12 +24,22 @@ export const fetchCandies = () => async dispatch => {
 };
 
 //Initial State
-const candies = [];
+const candies = [
+  {
+    name: 'Skittles',
+    description: 'Taste the rainbow',
+    quantity: 2,
+    imageUrl:
+      'https://target.scene7.com/is/image/Target/GUEST_3d2a8073-36e6-4cec-8c8c-872639105820?wid=488&hei=488&fmt=pjpeg'
+  }
+];
 
 // Sub-Reducer
-export const candyReducer = (state = [], action) => {
+export const candyReducer = (state = candies, action) => {
   switch (action.type) {
     case 'CANDY_SELECTED':
+      console.log(action, ' is action');
+      console.log(state, ' is state');
       return action.candy;
     default:
       return state;
