@@ -4,27 +4,27 @@ import { connect } from 'react-redux';
 
 class SingleCandy extends React.Component {
   compenentDidMount() {
-    this.props.gettingSingleCandy(this.props.match.params.id);
+    this.props.gettingSingleCandyForComponent(this.props.match.params.id);
   }
   render() {
-    const { name, description, imageURL, quantity } = this.props.singleCandy;
+    const { name, description, imageUrl, quantity } = this.props.singleCandy;
     return (
       <div>
         <h1>{name}</h1>
         <p>{description}</p>
         <p>{quantity}</p>
-        <img src={imageURL} />
+        <img src={imageUrl} />
       </div>
     );
   }
 }
 
 const mapStateToProps = state => ({
-  singleCandy: state.candy
+  singleCandy: state.candies.candy
 });
 
 const mapDispatchToProps = dispatch => ({
-  gettingSingleCandy(candyId) {
+  gettingSingleCandyForComponent(candyId) {
     return dispatch(gettingSingleCandy(candyId));
   }
 });

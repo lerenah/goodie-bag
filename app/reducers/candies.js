@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // Action Types
 export const FETCH_ALL_CANDIES = 'FETCH_ALL_CANDIES';
-export const SINGLE_CANDY = 'SINGLE_CANDY';
+export const FETCH_SINGLE_CANDY = 'SINGLE_CANDY';
 
 // Action Creator
 export const getCandies = candy => ({
@@ -11,7 +11,7 @@ export const getCandies = candy => ({
 });
 
 export const getSingleCandy = candyId => ({
-  type: SINGLE_CANDY,
+  type: FETCH_SINGLE_CANDY,
   payload: candyId
 });
 
@@ -32,23 +32,24 @@ export const gettingCandies = () => async dispatch => {
 export const gettingSingleCandy = candyId => async dispatch => {
   try {
     const { data } = await axios.get(`/api/candies/${candyId}`);
+    dispatch(getSingleCandy(data));
   } catch (err) {
     console.log(err);
   }
 };
 
 //Initial State
-const candies = { candies: [], candy: {} };
+const initialState = { candies: [], candy: {} };
 
 // Sub-Reducer
-export const candyReducer = (state = candies, action) => {
+export const candyReducer = (state = initialState, action) => {
   switch (action.type) {
     case 'FETCH_ALL_CANDIES':
       console.log(action, ' is action');
       console.log(state, ' is state');
-      return { ...state, candy: action.payload };
-    case 'SINGLE_CANDY':
       return { ...state, candies: action.payload };
+    case 'FETCH_SINGLE_CANDY':
+      return { ...state, candy: action.payload };
     default:
       return state;
   }

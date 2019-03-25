@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { gettingCandies } from '../reducers/candies';
-import { Link } from 'react-dom';
+import { Link } from 'react-router-dom';
 
 class CandiesList extends Component {
   componentDidMount() {
     // console.log(gettingCandies, ' is fetch candies');
     console.log('component did mount');
-    this.props.gettingCandies();
+    this.props.gettingCandiesForComponent();
   }
 
   render() {
@@ -20,7 +20,7 @@ class CandiesList extends Component {
           <h3>{candy.name}</h3>
           <p>{candy.description}</p>
           <Link to={`/candies/${candy.id}`}>
-            <img src={candy.imageURL} />
+            <img src={candy.imageUrl} />
           </Link>
         </div>
       );
@@ -34,7 +34,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  gettingCandies() {
+  gettingCandiesForComponent() {
     return dispatch(gettingCandies());
   }
 });
