@@ -19,7 +19,7 @@ class CandiesList extends Component {
         <div key={candy.id}>
           <h3>{candy.name}</h3>
           <p>{candy.description}</p>
-          <img src={candy.imageUrl} />
+          <img src={candy.imageURL} />
         </div>
       );
     });

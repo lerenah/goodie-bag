@@ -17,10 +17,23 @@ const db = require('../db/database');
 // router.use('/kittens', require('./kittens'))
 
 // Get Candies
-router.get('/candies', async (req, res, next) => {
+router.get('/api/candies', async (req, res, next) => {
   try {
     const candies = await Candy.findAll();
     res.json(candies);
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.get('/api/candies/:id', async (req, res, next) => {
+  try {
+    const singleCandy = await Candy.findOne({
+      where: {
+        id: req.params.id
+      }
+    });
+    res.json(singleCandy);
   } catch (err) {
     next(err);
   }

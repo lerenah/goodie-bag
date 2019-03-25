@@ -1,46 +1,54 @@
-import React from 'react';
 import axios from 'axios';
 
 // Action Types
-export const CANDY_SELECTED = 'CANDY_SELECTED';
+export const FETCH_ALL_CANDIES = 'FETCH_ALL_CANDIES';
+export const SINGLE_CANDY = 'SINGLE_CANDY';
 
 // Action Creator
-export const selectCandy = candy => ({
-  type: CANDY_SELECTED,
-  candy
+export const getCandies = candy => ({
+  type: FETCH_ALL_CANDIES,
+  payload: candy
+});
+
+export const getSingleCandy = candyId => ({
+  type: SINGLE_CANDY,
+  payload: candyId
 });
 
 // THUNK
-
-export const getCandies = () => async dispatch => {
+// Get ALL CANDIES
+export const gettingCandies = () => async dispatch => {
   console.log('testing');
   try {
     console.log('from actions candies server');
-    const { data } = await axios.get('/candies');
-    dispatch(selectCandy(data));
+    const { data } = await axios.get('/api/candies');
+    dispatch(getCandies(data));
   } catch (err) {
     console.error(err);
   }
 };
 
-//Initial State
-const candies = [
-  {
-    name: 'Skittles',
-    description: 'Taste the rainbow',
-    quantity: 2,
-    imageUrl:
-      'https://target.scene7.com/is/image/Target/GUEST_3d2a8073-36e6-4cec-8c8c-872639105820?wid=488&hei=488&fmt=pjpeg'
+// GET SINGLE CANDY
+export const gettingSingleCandy = candyId => async dispatch => {
+  try {
+    const { data } = await axios.get(`/api/candies/${candyId}`);
+  } catch (err) {
+    console.log(err);
   }
-];
+};
+
+//Initial State
+const candies = { candy: [], candies: {} };
 
 // Sub-Reducer
 export const candyReducer = (state = candies, action) => {
   switch (action.type) {
-    case 'CANDY_SELECTED':
+    case 'FETCH_ALL_CANDIES':
       console.log(action, ' is action');
       console.log(state, ' is state');
-      return action.candy;
+      return { ...state, candy: action.payload };
+    case 'SINGLE_CANDY':
+      return { ...state, candies: action.payload };
     default:
       return state;
   }
