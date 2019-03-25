@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 const db = require('../database');
 
-module.exports = db.define('candy', {
+module.exports = db.define('candies', {
   // define your model here!
   name: {
     type: Sequelize.STRING,

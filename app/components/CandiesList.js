@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import { connect } from 'react-redux';
-import { getCandies } from '../reducers/candies';
+import { gettingCandies } from '../reducers/candies';
+import { Link } from 'react-dom';
 
 class CandiesList extends Component {
   componentDidMount() {
-    console.log(getCandies, ' is fetch candies');
+    // console.log(gettingCandies, ' is fetch candies');
     console.log('component did mount');
-    this.props.getCandies();
+    this.props.gettingCandies();
   }
 
   render() {
@@ -19,7 +19,9 @@ class CandiesList extends Component {
         <div key={candy.id}>
           <h3>{candy.name}</h3>
           <p>{candy.description}</p>
-          <img src={candy.imageURL} />
+          <Link to={`/candies/${candy.id}`}>
+            <img src={candy.imageURL} />
+          </Link>
         </div>
       );
     });
@@ -28,14 +30,16 @@ class CandiesList extends Component {
 }
 
 const mapStateToProps = state => ({
-  candy: state.candies
+  candy: state.candies.candies
 });
 
-// const mapDispatchToProps = dispatch => {
-//   return dispatch(getCandies());
-// };
+const mapDispatchToProps = dispatch => ({
+  gettingCandies() {
+    return dispatch(gettingCandies());
+  }
+});
 
 export default connect(
   mapStateToProps,
-  { getCandies }
+  mapDispatchToProps
 )(CandiesList);

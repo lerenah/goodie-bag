@@ -38,7 +38,7 @@ export const gettingSingleCandy = candyId => async dispatch => {
 };
 
 //Initial State
-const candies = { candy: [], candies: {} };
+const candies = { candies: [], candy: {} };
 
 // Sub-Reducer
 export const candyReducer = (state = candies, action) => {
