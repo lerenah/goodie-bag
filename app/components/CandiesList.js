@@ -6,14 +6,11 @@ import { Link } from 'react-router-dom';
 class CandiesList extends Component {
   componentDidMount() {
     // console.log(gettingCandies, ' is fetch candies');
-    console.log('component did mount');
     this.props.gettingCandiesForComponent();
   }
 
   render() {
-    console.log(this.props.candy, ' is props 14');
     // return <h1>Hello again</h1>;
-
     const candyItems = this.props.candy.map(candy => {
       return (
         <div key={candy.id}>
@@ -25,6 +22,7 @@ class CandiesList extends Component {
         </div>
       );
     });
+    
     return <div>{candyItems}</div>;
   }
 }

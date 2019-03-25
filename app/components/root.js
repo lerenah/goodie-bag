@@ -7,6 +7,7 @@ const Root = () => {
   return (
     <div>
       <nav>
+        Goodie Bag
         <ul>
           <li>
             <Link to={'/'}>Goodie Bag</Link>
@@ -17,17 +18,18 @@ const Root = () => {
           <li>
             <Link to={'/remove'}>Remove Goodie</Link>
           </li>
+          <li>
+            <Link to={'/candies/:id'}>Single Goodie</Link>
+          </li>
         </ul>
       </nav>
       <main>
         <h1>Welcome to the Goodie Bag!</h1>
         <p>What a nice home page for your goodies!</p>
-        <Router>
-          <Switch>
-            <Route exact path='/' component={CandiesList} />
-            <Route exact path='/candies/:id' component={SingleCandy} />
-          </Switch>
-        </Router>
+        <Switch>
+          <Route exact path='/' component={CandiesList} />
+          <Route path='/candies/:id' component={SingleCandy} />
+        </Switch>
       </main>
     </div>
   );
